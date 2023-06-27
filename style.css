@@ -19,4 +19,48 @@ time, mark, audio, video {
 	vertical-align: baseline;
 	/* color: #ccc; */
 	/* background-color: #ccc; */
+	/* background-color: rgb(151, 157, 141); */
+}
+
+body{
+	background-color: rgb(151, 157, 141);
+}
+
+.container{
+	display: flex;
+	flex-direction: column;
+	font-family: 'Roboto', sans-serif;
+	font-weight: bolder;
+	font-size: 36px;
+	background-color: rgb(151, 157, 141);
+	/* justify-content: center;
+	align-items: center; */
+}
+
+.upper{
+	display: flex;
+	margin:25px;
+}
+
+.lower{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin:25px;
+}
+
+.board{
+	display: grid;
+	grid-template-rows: 200px 200px 200px;
+    grid-template-columns: 200px 200px 200px;
+}
+
+.space{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.space:hover{
+	background-color: rgb(238, 240, 235);
 }
