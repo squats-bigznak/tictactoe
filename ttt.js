@@ -1,3 +1,18 @@
+//need playerFactory
+//functionality will be to toggle entire UI between X and O
+
+const playerFactory = (token) => {
+  const sayHello = () => console.log('Player ' + token + ' hello!');
+  return {sayHello, token};
+};
+
+const playerX = playerFactory('X');
+const playerO = playerFactory('O');
+
+playerX.sayHello();
+playerO.sayHello();
+console.log(playerX.token);
+console.log(playerO.token);
 
 
 
