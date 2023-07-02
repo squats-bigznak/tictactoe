@@ -1,16 +1,3 @@
-//game loop:
-//load screen 
-//hit restart
-//screen switches to "player X turn"
-//tooltip changes to X
-//X is played
-//win/tie conditions checked
-//screen switches to "player O turn"
-//O is played
-//conditions checked 
-//conditions reached
-//X/O is winner
-//only clickable button is "restart"
 
 const Gamecontroller = (() => {
 
@@ -69,39 +56,39 @@ const Gameboard = (() => {
       
       if ((gameboard[0] === gameboard[1])&&(gameboard[1] === gameboard[2]))
       {
-        return (gameboard[0] + " win");
+        return (gameboard[0] + " wins!");
       }
       else if((gameboard[0] === gameboard[3])&&(gameboard[3] === gameboard[6]))
       {
-        return (gameboard[0] + " win");
+        return (gameboard[0] + " wins!");
       }
       else if((gameboard[0] === gameboard[4])&&(gameboard[4] === gameboard[8]))
       {
-        return (gameboard[0] + " win");
+        return (gameboard[0] + " wins!");
       }
       else if((gameboard[1] === gameboard[4])&&(gameboard[4] === gameboard[7]))
       {
-        return (gameboard[1] + " win");
+        return (gameboard[1] + " wins!");
       }
       else if((gameboard[2] === gameboard[5])&&(gameboard[5] === gameboard[8]))
       {
-        return (gameboard[2] + " win");
+        return (gameboard[2] + " wins!");
       }
       else if((gameboard[3] === gameboard[4])&&(gameboard[4] === gameboard[5]))
       {
-        return (gameboard[3] + " win");
+        return (gameboard[3] + " wins!");
       }
       else if((gameboard[6] === gameboard[4])&&(gameboard[4] === gameboard[2]))
       {
-        return (gameboard[6] + " win");
+        return (gameboard[6] + " wins!");
       }
       else if((gameboard[6] === gameboard[7])&&(gameboard[7] === gameboard[8]))
       {
-        return (gameboard[6] + " win");
+        return (gameboard[6] + " wins!");
       }
 
       else if (turncount === 9){
-        return ("tie!");
+        return ("It's a tie!");
       }
       else{
         return false;
@@ -135,12 +122,10 @@ function playTurn(space){
   if (Gameboard.checkWin() == false){
     //check DOMtree to see if current move is valid or if space is already occupied
     const checkSpace = document.querySelector(`[id=${CSS.escape(space)}]`);
-    // console.log("checkSpace" + checkSpace.textContent);
     if ((checkSpace.textContent !== 'X') && (checkSpace.textContent !== 'O')){
       //need a variable for these so the functions are only called once per turn
       var curToken = Gamecontroller.getCurrentPlayerToken();
       var curChoice = Gameboard.chooseSpace(space, curToken);
-  
       //check chooseSpace to see if the spacechoice is valid
       if ((curChoice !== false)){
       changeSpotDom(space, curToken);
@@ -174,3 +159,4 @@ function playTurn(space){
  sevenspace.addEventListener("click", () =>  playTurn(7));
  const eightspace = document.getElementById("8");
  eightspace.addEventListener("click", () =>  playTurn(8));
+ 

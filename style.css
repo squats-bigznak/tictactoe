@@ -39,6 +39,7 @@ body{
 
 .upper{
 	display: flex;
+	justify-content: space-around;
 	margin:25px;
 }
 
@@ -53,14 +54,55 @@ body{
 	display: grid;
 	grid-template-rows: 200px 200px 200px;
     grid-template-columns: 200px 200px 200px;
+	/* grid-gap: 0 px; */
 }
 
 .space{
 	display: flex;
+	padding: 1rem;
+	background-color: rgb(192, 209, 167);
+	color: rgb(6, 6, 34);
 	justify-content: center;
+	border-style: dashed;
+	border-color: aquamarine;
+	border: 1px;
+	border-style: dashed;
 	align-items: center;
+	font-size: 90px;
 }
 
 .space:hover{
 	background-color: rgb(238, 240, 235);
+}
+
+button{
+	background-color: rgb(238, 240, 235);
+	border: none;
+	border-radius: 25px;
+	color: rgb(228, 50, 50);
+	margin: 4px;
+	padding: 8px 18px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 20px;
+}
+
+.results{
+	position: absolute;
+	pointer-events: none;
+	top: 50%;
+  	left: 50%;
+	white-space: nowrap;
+  	transform: translate(-50%, -50%);
+	color: rgb(255, 0, 0);
+	font-size: 300px;
+}
+
+button:active{
+    background:olive;
+}
+
+button:focus{
+    background:rgb(5, 5, 5);
 }
