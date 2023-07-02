@@ -24,10 +24,6 @@ const Gamecontroller = (() => {
   const playerX = playerFactory('X');
   const playerO = playerFactory('O');
 
-  // playerX.sayHello();
-  // playerO.sayHello();
-  // console.log(playerX.token);
-  // console.log(playerO.token);
   var currentPlayer = playerX;
 
   const getCurrentPlayerToken = () => {
@@ -35,7 +31,6 @@ const Gamecontroller = (() => {
     //this switches players every turn
 
     currentPlayer = currentPlayer === playerX ? playerO : playerX;
-    // console.log(currentPlayer);
     return (currentPlayer.token);
     
   };
@@ -54,9 +49,10 @@ const Gameboard = (() => {
 
     // const getBoard = () => board;
 
-    const playTurn = (space, token) => {
+    const chooseSpace = (space, token) => {
       if((gameboard[space] == 'X') || (gameboard[space] == 'O')){
         console.log("spot already chosen");
+        return false;
       }
       else{
       gameboard.splice(space, 1, token);
@@ -69,11 +65,9 @@ const Gameboard = (() => {
     
       console.log(turncount);
       console.log(gameboard);
-      if (turncount === 9){
-        return ("tie!");
-      }
       
-      else if ((gameboard[0] === gameboard[1])&&(gameboard[1] === gameboard[2]))
+      
+      if ((gameboard[0] === gameboard[1])&&(gameboard[1] === gameboard[2]))
       {
         return (gameboard[0] + " win");
       }
@@ -105,6 +99,13 @@ const Gameboard = (() => {
       {
         return (gameboard[6] + " win");
       }
+
+      else if (turncount === 9){
+        return ("tie!");
+      }
+      else{
+        return false;
+      }
     };
 
     const resetBoard = () =>{
@@ -112,43 +113,64 @@ const Gameboard = (() => {
     }
     
     return {
-      playTurn, checkWin, resetBoard
+      chooseSpace, checkWin, resetBoard
     }
     
   })();
 
+function changeSpotDom(space, token){
+  
+  const tempspace = document.querySelector(`[id=${CSS.escape(space)}]`);
+  tempspace.textContent = token;
+
+  console.log(tempspace);
+}
+
   //here's where we put it all together
 
-  function playGame(){
-    Gameboard.resetBoard();
+Gameboard.resetBoard();
 
-    //while loop?
-    do {
-      Gameboard.playTurn(prompt(), Gamecontroller.getCurrentPlayerToken());
-      console.log(Gameboard);
+function playTurn(space){
+  //check win status
+  if (Gameboard.checkWin() == false){
+    //check DOMtree to see if current move is valid or if space is already occupied
+    const checkSpace = document.querySelector(`[id=${CSS.escape(space)}]`);
+    // console.log("checkSpace" + checkSpace.textContent);
+    if ((checkSpace.textContent !== 'X') && (checkSpace.textContent !== 'O')){
+      //need a variable for these so the functions are only called once per turn
+      var curToken = Gamecontroller.getCurrentPlayerToken();
+      var curChoice = Gameboard.chooseSpace(space, curToken);
+  
+      //check chooseSpace to see if the spacechoice is valid
+      if ((curChoice !== false)){
+      changeSpotDom(space, curToken);
+      console.log(Gameboard.checkWin());
+        if (Gameboard.checkWin() !== false){
+          const showResult = document.querySelector('.results');
+          showResult.textContent = Gameboard.checkWin();
+        }
+      }
     }
-    while (Gameboard.checkWin() === undefined);
-    
-    console.log(Gameboard.checkWin());
-  };
+  }
 
- playGame();
+  
+};
 
-  // console.log(Gameboard.playTurn(0,Gamecontroller.getCurrentPlayerToken()));
-  // console.log(Gameboard.playTurn(1,Gamecontroller.getCurrentPlayerToken()));
-  // console.log(Gameboard.playTurn(2,Gamecontroller.getCurrentPlayerToken()));
-  // console.log(Gameboard.playTurn(3,Gamecontroller.getCurrentPlayerToken()));
-
-  // console.log(Gameboard.playTurn(5,'x'));
-  // console.log(Gameboard.playTurn(6,'x'));
-  // console.log(Gameboard.playTurn(7,'x'));
-  // console.log(Gameboard.playTurn(8,'o'));
-  // console.log(Gameboard.checkWin());
-  // Gamecontroller.switchPlayer();
-  // console.log(Gamecontroller.switchPlayer);
-  // console.log(Gamecontroller.switchPlayer.token);
-  // Gamecontroller.switchPlayer();
-  // console.log(Gamecontroller.switchPlayer);
-  // console.log(Gamecontroller.switchPlayer.token);
-  // console.log(Gamecontroller.switchPlayer());
-  // console.log(Gamecontroller.switchPlayer());
+ const zerospace = document.getElementById("0");
+ zerospace.addEventListener("click", () => playTurn(0));
+ const onespace = document.getElementById("1");
+ onespace.addEventListener("click", () =>  playTurn(1));
+ const twospace = document.getElementById("2");
+ twospace.addEventListener("click", () =>  playTurn(2));
+ const threespace = document.getElementById("3");
+ threespace.addEventListener("click", () =>  playTurn(3));
+ const fourspace = document.getElementById("4");
+ fourspace.addEventListener("click", () =>  playTurn(4));
+ const fivespace = document.getElementById("5");
+ fivespace.addEventListener("click", () =>  playTurn(5));
+ const sixspace = document.getElementById("6");
+ sixspace.addEventListener("click", () =>  playTurn(6));
+ const sevenspace = document.getElementById("7");
+ sevenspace.addEventListener("click", () =>  playTurn(7));
+ const eightspace = document.getElementById("8");
+ eightspace.addEventListener("click", () =>  playTurn(8));
